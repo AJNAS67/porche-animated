@@ -1,0 +1,52 @@
+.image-sequence-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.image-sequence-container.dragging {
+  cursor: grabbing;
+}
+
+.sequence-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.canvas-fallback-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Cinematic Edge Blends */
+.canvas-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    transparent 45%,
+    rgba(5, 5, 5, 0.4) 80%,
+    rgba(5, 5, 5, 0.95) 100%
+  );
+}
+
+.canvas-bottom-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25vh;
+  pointer-events: none;
+  background: linear-gradient(to top, #050505 0%, transparent 100%);
+}
