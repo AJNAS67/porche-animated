@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { experienceConfig, getFramePath, getFallbackFramePath } from '../data/experienceConfig';
+import {
+  experienceConfig,
+  getFramePath,
+  getFallbackFramePath,
+  getFrameCandidatePaths,
+} from '../data/experienceConfig';
 import { useResponsive } from './useResponsive';
 
 export interface UseImageSequenceOptions {
@@ -139,58 +144,63 @@ export function useImageSequence(options: UseImageSequenceOptions = {}): UseImag
     const thresholdBatch = Math.min(initialBatch, frameCount);
 
     // Preload static fallback image first
-    const fallback = new Image();
-    fallback.src = experienceConfig.fallbackImage;
-    fallback.onload = () => {
-      fallbackImgRef.current = fallback;
-      if (!isCancelled && currentFrameRef.current === 1) {
-        requestDraw(1);
-      }
+    const fallbackCandidates = [
+      experienceConfig.fallbackImage,
+      '/images/testarossa-jpg/ezgif-frame-001.jpg',
+      '/testarossa-jpg/ezgif-frame-001.jpg',
+      '/frames/frame-0001.jpg',
+    ];
+    let fallbackIdx = 0;
+    const tryLoadFallback = () => {
+      if (isCancelled || fallbackIdx >= fallbackCandidates.length) return;
+      const src = fallbackCandidates[fallbackIdx++];
+      const fallback = new Image();
+      fallback.src = src;
+      fallback.onload = () => {
+        if (isCancelled) return;
+        fallbackImgRef.current = fallback;
+        if (currentFrameRef.current === 1) {
+          requestDraw(1);
+        }
+      };
+      fallback.onerror = () => {
+        tryLoadFallback();
+      };
     };
+    tryLoadFallback();
 
     const loadSingleFrame = (index: number): Promise<HTMLImageElement | null> => {
       return new Promise((resolve) => {
-        if (imagesRef.current[index]?.complete) {
+        if (imagesRef.current[index]?.complete && imagesRef.current[index]?.naturalWidth !== 0) {
           resolve(imagesRef.current[index]);
           return;
         }
 
-        const img = new Image();
-        const primarySrc = getFramePath(index);
-        const fallbackSrc = getFallbackFramePath(index);
+        const candidates = getFrameCandidatePaths(index);
+        let candidateIdx = 0;
 
-        img.onload = () => {
+        const tryCandidate = () => {
           if (isCancelled) return resolve(null);
-          imagesRef.current[index] = img;
-          loadedCount++;
-          setLoadedFrames(loadedCount);
-
-          // If this is the current frame or first frame, render immediately
-          if (index === currentFrameRef.current || (currentFrameRef.current === 1 && index === 1)) {
-            requestDraw(index);
+          if (candidateIdx >= candidates.length) {
+            // Non-breaking fallback: reuse previous frame or fallback image
+            loadedCount++;
+            setLoadedFrames(loadedCount);
+            if (loadedCount >= thresholdBatch && !isReady) {
+              setIsReady(true);
+            }
+            if (loadedCount >= frameCount) {
+              setIsLoading(false);
+            }
+            resolve(null);
+            return;
           }
 
-          // Once initial batch threshold is hit, mark experience as ready!
-          if (loadedCount >= thresholdBatch && !isReady) {
-            setIsReady(true);
-            onInitialBatchLoaded?.();
-          }
+          const currentSrc = candidates[candidateIdx++];
+          const img = new Image();
 
-          if (loadedCount >= frameCount) {
-            setIsLoading(false);
-          }
-
-          resolve(img);
-        };
-
-        img.onerror = () => {
-          // Attempt fallback path
-          const fallbackImg = new Image();
-          fallbackImg.src = fallbackSrc;
-
-          fallbackImg.onload = () => {
+          img.onload = () => {
             if (isCancelled) return resolve(null);
-            imagesRef.current[index] = fallbackImg;
+            imagesRef.current[index] = img;
             loadedCount++;
             setLoadedFrames(loadedCount);
 
@@ -207,25 +217,17 @@ export function useImageSequence(options: UseImageSequenceOptions = {}): UseImag
               setIsLoading(false);
             }
 
-            resolve(fallbackImg);
+            resolve(img);
           };
 
-          fallbackImg.onerror = () => {
-            if (isCancelled) return resolve(null);
-            // Non-breaking fallback: reuse previous frame or fallback image
-            loadedCount++;
-            setLoadedFrames(loadedCount);
-            if (loadedCount >= thresholdBatch && !isReady) {
-              setIsReady(true);
-            }
-            if (loadedCount >= frameCount) {
-              setIsLoading(false);
-            }
-            resolve(null);
+          img.onerror = () => {
+            tryCandidate();
           };
+
+          img.src = currentSrc;
         };
 
-        img.src = primarySrc;
+        tryCandidate();
       });
     };
 

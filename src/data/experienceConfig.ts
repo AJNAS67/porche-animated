@@ -44,11 +44,11 @@ export interface ExperienceConfig {
 
 export const experienceConfig: ExperienceConfig = {
   frameCount: 300,
-  framePath: '/frames/frame-{index}.jpg',
-  fallbackFramePath: '/images/testarossa-jpg/ezgif-frame-{index}.jpg',
-  padding: 4,
+  framePath: '/images/testarossa-jpg/ezgif-frame-{index}.jpg',
+  fallbackFramePath: '/frames/frame-{index}.jpg',
+  padding: 3,
   initialPreloadBatch: 40,
-  fallbackImage: '/frames/frame-0001.jpg',
+  fallbackImage: '/images/testarossa-jpg/ezgif-frame-001.jpg',
   aspectRatio: 16 / 9,
 
   hero: {
@@ -153,7 +153,7 @@ export const experienceConfig: ExperienceConfig = {
 };
 
 /**
- * Returns formatted frame path. Supports fallback padding if needed.
+ * Returns formatted frame path using configured padding.
  */
 export function getFramePath(index: number, config: ExperienceConfig = experienceConfig): string {
   const clampedIndex = Math.max(1, Math.min(config.frameCount, Math.round(index)));
@@ -162,10 +162,31 @@ export function getFramePath(index: number, config: ExperienceConfig = experienc
 }
 
 /**
- * Fallback path generator for alternate directory format (e.g. 3-digit ezgif naming)
+ * Fallback path generator for alternate directory format (e.g. 4-digit frames or 3-digit ezgif naming)
  */
 export function getFallbackFramePath(index: number, config: ExperienceConfig = experienceConfig): string {
   const clampedIndex = Math.max(1, Math.min(config.frameCount, Math.round(index)));
+  const padLen = config.fallbackFramePath.includes('/frames/') ? 4 : 3;
+  const padded = String(clampedIndex).padStart(padLen, '0');
+  return config.fallbackFramePath.replace('{index}', padded);
+}
+
+/**
+ * Returns an ordered array of candidate URLs to load a given frame.
+ * Tries the primary path first, then alternate folder conventions, and lastly legacy fallback.
+ */
+export function getFrameCandidatePaths(index: number, config: ExperienceConfig = experienceConfig): string[] {
+  const clampedIndex = Math.max(1, Math.min(config.frameCount, Math.round(index)));
   const padded3 = String(clampedIndex).padStart(3, '0');
-  return config.fallbackFramePath.replace('{index}', padded3);
+  const padded4 = String(clampedIndex).padStart(4, '0');
+
+  const candidates = [
+    getFramePath(clampedIndex, config),
+    `/testarossa-jpg/ezgif-frame-${padded3}.jpg`,
+    `/images/testarossa-jpg/ezgif-frame-${padded3}.jpg`,
+    getFallbackFramePath(clampedIndex, config),
+    `/frames/frame-${padded4}.jpg`,
+  ];
+
+  return Array.from(new Set(candidates));
 }

@@ -55,16 +55,17 @@ The primary vehicle animation uses **HTML5 Canvas** rather than placing hundreds
 ### 2. Frame Assets & Directory Structure
 ```text
 public/
-├── frames/
-│   ├── frame-0001.jpg
-│   ├── frame-0002.jpg
-│   └── ... up to frame-0300.jpg
+├── images/
+│   ├── testarossa-jpg/
+│   │   ├── ezgif-frame-001.jpg
+│   │   ├── ezgif-frame-002.jpg
+│   │   └── ... up to ezgif-frame-300.jpg
+│   ├── ferrari_f8_engine.jpg
+│   ├── ferrari_f8_aero.jpg
+│   ├── ferrari_f8_xray.jpg
+│   └── ferrari_f8_interior.jpg
 │
-└── images/
-    ├── ferrari_f8_engine.jpg
-    ├── ferrari_f8_aero.jpg
-    ├── ferrari_f8_xray.jpg
-    └── ferrari_f8_interior.jpg
+└── frames/ (legacy fallback sequence)
 ```
 
 ### 3. Central Configuration (`src/data/experienceConfig.ts`)
@@ -73,10 +74,11 @@ To configure frame counts, frame paths, sequence milestones, or assets, edit [ex
 ```typescript
 export const experienceConfig = {
   frameCount: 300,
-  framePath: '/frames/frame-{index}.jpg',
-  padding: 4,
+  framePath: '/images/testarossa-jpg/ezgif-frame-{index}.jpg',
+  fallbackFramePath: '/frames/frame-{index}.jpg',
+  padding: 3,
   initialPreloadBatch: 40,
-  fallbackImage: '/frames/frame-0001.jpg',
+  fallbackImage: '/images/testarossa-jpg/ezgif-frame-001.jpg',
   aspectRatio: 16 / 9,
   ...
 };

@@ -153,7 +153,7 @@ export const carData = {
       label: 'EXTERIOR',
       title: 'SCULPTED BY THE WIND',
       subtitle: 'FORM FOLLOWS FUNCTION WITH UNCOMPROMISED BEAUTY',
-      image: '/frames/frame-0001.jpg',
+      image: '/images/testarossa-jpg/ezgif-frame-001.jpg',
       specs: [
         { label: 'Length', value: '4,611 mm' },
         { label: 'Width', value: '1,979 mm' },

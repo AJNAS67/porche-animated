@@ -1,5 +1,5 @@
 import React from 'react';
-import { SequenceState } from '../data/experienceConfig';
+import { SequenceState, experienceConfig } from '../data/experienceConfig';
 import './TechnicalOverlay.css';
 
 interface TechnicalOverlayProps {
@@ -51,9 +51,13 @@ export const TechnicalOverlay: React.FC<TechnicalOverlayProps> = ({
         <div className="hud-bracket-tr" />
         <div className="frame-telemetry">
           <div className="frame-counter">
-            <span className="frame-num">{String(currentFrame).padStart(4, '0')}</span>
+            <span className="frame-num">
+              {String(currentFrame).padStart(experienceConfig.padding, '0')}
+            </span>
             <span className="frame-slash">/</span>
-            <span className="frame-max">{String(totalFrames).padStart(4, '0')}</span>
+            <span className="frame-max">
+              {String(totalFrames).padStart(experienceConfig.padding, '0')}
+            </span>
           </div>
           <div className="frame-timeline-bar">
             <div

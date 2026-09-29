@@ -14,7 +14,7 @@ export const ImageSequence: React.FC<ImageSequenceProps> = ({
   canvasRef,
   currentFrame,
   totalFrames,
-  fallbackImage = '/frames/frame-0001.jpg',
+  fallbackImage = '/images/testarossa-jpg/ezgif-frame-001.jpg',
   onManualScrub,
   interactive = true,
 }) => {
