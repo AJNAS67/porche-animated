@@ -1,0 +1,225 @@
+.explorer-section {
+  position: relative;
+  background-color: var(--bg-primary);
+}
+
+.explorer-tabs-nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tab-btn:hover {
+  border-color: var(--border-medium);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tab-btn.active {
+  border-color: var(--accent-red);
+  background: rgba(228, 0, 43, 0.1);
+  box-shadow: 0 0 15px rgba(228, 0, 43, 0.2);
+}
+
+.tab-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: background var(--transition-fast);
+}
+
+.tab-btn.active .tab-indicator {
+  background: var(--accent-red);
+  box-shadow: 0 0 6px var(--accent-red);
+}
+
+.tab-title {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+}
+
+.tab-btn.active .tab-title {
+  color: #ffffff;
+}
+
+/* Stage Card Layout */
+.explorer-stage-card {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.explorer-stage-card.transitioning {
+  opacity: 0.3;
+  transform: scale(0.99);
+}
+
+@media (max-width: 1024px) {
+  .explorer-stage-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+.explorer-visual-half {
+  position: relative;
+  background: #000000;
+  overflow: hidden;
+}
+
+.visual-media-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+.explorer-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.visual-shading-edge {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 70%, rgba(5, 5, 5, 0.6) 100%);
+  pointer-events: none;
+}
+
+.tab-watermark-tag {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(10, 10, 12, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Details Half */
+.explorer-details-half {
+  padding: clamp(2rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg-surface);
+}
+
+.tab-headline-group {
+  margin-bottom: 2rem;
+}
+
+.tab-meta-badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-red);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.tab-title-main {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.tab-subtitle-lead {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.tab-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.2rem 0;
+}
+
+.tab-spec-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.spec-cell-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+.spec-cell-val {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.tab-highlights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.highlights-title {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.tab-highlights-list ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.bullet-dash {
+  color: var(--accent-red);
+  font-weight: 700;
+}
