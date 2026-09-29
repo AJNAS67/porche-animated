@@ -1,0 +1,237 @@
+.aerodynamics-section {
+  position: relative;
+  background-color: var(--bg-primary);
+}
+
+.aero-stage-card {
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.aero-stage-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  overflow: hidden;
+}
+
+.aero-base-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.airflow-svg-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Interactive pins */
+.aero-interactive-pins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.aero-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: auto;
+  padding: 0;
+}
+
+.pin-core {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px var(--accent-red);
+  transition: transform var(--transition-fast);
+}
+
+.pin-pulse {
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-red);
+  animation: radarRing 2s infinite ease-out;
+  pointer-events: none;
+}
+
+.pin-tag-label {
+  margin-left: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: #ffffff;
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-subtle);
+  border-left: 2px solid var(--accent-red);
+  white-space: nowrap;
+  opacity: 0.85;
+  transition: all var(--transition-fast);
+}
+
+.aero-pin:hover .pin-core,
+.aero-pin.active .pin-core {
+  transform: scale(1.3);
+  background: #ffffff;
+  border-color: var(--accent-red);
+}
+
+.aero-pin:hover .pin-tag-label,
+.aero-pin.active .pin-tag-label {
+  opacity: 1;
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+@media (max-width: 768px) {
+  .pin-tag-label {
+    display: none;
+  }
+}
+
+/* HUD controls */
+.aero-hud-controls {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 15;
+}
+
+.btn-streamline-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(10, 10, 12, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 0.45rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-streamline-toggle:hover {
+  border-color: var(--accent-red);
+  color: var(--text-primary);
+}
+
+.btn-streamline-toggle.on {
+  border-color: var(--accent-red);
+  background: rgba(228, 0, 43, 0.15);
+  color: #ffffff;
+}
+
+.toggle-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.btn-streamline-toggle.on .toggle-indicator {
+  background: var(--accent-red);
+  box-shadow: 0 0 6px var(--accent-red);
+}
+
+/* Detail Banner */
+.aero-detail-banner {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  padding: 2rem clamp(1.5rem, 4vw, 3rem);
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .aero-detail-banner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.aero-banner-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-gain-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent-red);
+  margin-bottom: 0.5rem;
+}
+
+.banner-feat-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  margin-bottom: 0.6rem;
+}
+
+.banner-feat-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.aero-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+.pillar-cell {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pillar-num {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+.pillar-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
