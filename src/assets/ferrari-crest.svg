@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125" width="100%" height="100%">
+  <!-- Ferrari Shield Base -->
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE000" />
+      <stop offset="100%" stop-color="#FFC700" />
+    </linearGradient>
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <g filter="url(#subtleShadow)">
+    <!-- Outer Shield Border (Black) -->
+    <path
+      d="M 50,4 C 74,4 93,6 94,8 C 95,30 92,72 82,94 C 73,111 50,121 50,121 C 50,121 27,111 18,94 C 8,72 5,30 6,8 C 7,6 26,4 50,4 Z"
+      fill="#0a0a0a"
+      stroke="#1f1f1f"
+      stroke-width="1.5"
+    />
+
+    <!-- Inner Shield (Canary Giallo Modena Yellow) -->
+    <path
+      d="M 50,7 C 72,7 89.5,8.8 90.5,10.5 C 91.5,30.5 88.5,69.5 79.5,89.5 C 71.5,105 50,114.5 50,114.5 C 50,114.5 28.5,105 20.5,89.5 C 11.5,69.5 8.5,30.5 9.5,10.5 C 10.5,8.8 28,7 50,7 Z"
+      fill="url(#shieldGrad)"
+    />
+
+    <!-- Italian Tricolore Top Bar -->
+    <g id="tricolore">
+      <!-- Green Band (Verde) -->
+      <path
+        d="M 10.5,10.5 C 22,8.8 36,7.7 37,7.6 L 37,17.5 L 12.5,17.5 C 11.2,14.5 10.8,12 10.5,10.5 Z"
+        fill="#008C45"
+      />
+      <!-- White Band (Bianco) -->
+      <path
+        d="M 37,7.6 C 45,7.2 55,7.2 63,7.6 L 63,17.5 L 37,17.5 Z"
+        fill="#FFFFFF"
+      />
+      <!-- Red Band (Rosso) -->
+      <path
+        d="M 63,7.6 C 64,7.7 78,8.8 89.5,10.5 C 89.2,12 88.8,14.5 87.5,17.5 L 63,17.5 Z"
+        fill="#CD212A"
+      />
+      <!-- Thin Divider Line below Tricolore -->
+      <line x1="12" y1="17.5" x2="88" y2="17.5" stroke="#111111" stroke-width="0.8" />
+    </g>
+
+    <!-- Scuderia Ferrari 'S' and 'F' initials -->
+    <g id="sf-initials" fill="#111111" font-family="'Space Grotesk', 'Helvetica', 'Arial', sans-serif" font-weight="900">
+      <text x="21" y="104" font-size="16" letter-spacing="0">S</text>
+      <text x="66" y="104" font-size="16" letter-spacing="0">F</text>
+    </g>
+
+    <!-- Cavallino Rampante (The Prancing Horse) Silhouette -->
+    <path
+      d="M 58.5,30 C 57,28.5 54.8,25.2 52.5,23.5 C 50.8,22.2 48.5,22.8 48,24.5 C 47.6,25.8 49,27 47.8,28.5 C 46.5,30.2 44.5,29.8 43,31 C 41.8,32 42.5,34 44.2,34.2 C 46,34.4 47.5,33.5 49,34 C 47.2,36 43,38 41,39.5 C 38.8,41.2 36.5,41 35,42.5 C 33.8,43.7 34.5,45.5 36.2,45.2 C 38.5,44.8 41,43.2 43.5,42 C 45,41.2 46.8,42 47.5,43.5 C 45,45.5 41.5,48.8 38,51 C 36.5,52 37.5,54 39,53.8 C 42,53.2 45.2,50 48,47.5 C 49.5,46.2 51,47 51.5,49 C 52.2,52 51,56.5 49.5,60 C 47.5,64.5 44,69 41.5,73.5 C 39.8,76.5 41.2,79 43.8,77.5 C 46.5,76 48.8,71.5 51.5,67 C 53.5,63.5 55.5,65 56.5,68 C 58.5,74 59.8,82 60.5,90 C 60.8,93 63.5,93 63.8,90 C 64.2,85 64.5,77 62.5,70 C 61.5,66.5 62,64.2 64.5,62.5 C 67.5,60.5 71,59 73,56 C 75,53 73.5,51 70.5,52.5 C 67.5,54 65.5,56.2 62.5,57 C 60.5,57.5 59.5,56 59,54 C 57.8,49.5 58,44 60,39.5 C 62,35 65.5,32 67,27.5 C 67.8,25 65,24 63.5,26 C 61.8,28.2 60.2,31.5 58.5,30 Z
+         M 64.5,37 C 67,39 70,41 72,44 C 73,45.5 74.5,45 74.2,43.5 C 73.8,41 71.5,38 68.5,35.5 C 67,34.2 65.2,35.5 64.5,37 Z"
+      fill="#111111"
+    />
+  </g>
+</svg>
